@@ -8,18 +8,25 @@
 			background-color: #10171D;
 		}
 
-		div.container {
-			
+		#instructions {
+			width: 100%;
+			font-weight: bold;
+			position: fixed;
+			color: white;
+			font-family: roboto;
+			text-align: center;
 		}
-
-		canvas {
-			
-		}
-
 	</style>
 </head>
 <body>
-	<div id="container" class="container"></div>
+	<div id="instructions">
+		<p>
+			Para mover a câmera, utilize o mouse ou as setas direcionais<br>
+			Para dar zoom, use o scroll do mouse.
+		</p>
+	</div>
+	<div id="container" class="container">
+	</div>
 	<script src="js/three.min.js"></script>
 	<script src="js/OrbitControls.js"></script>
 	<script src="js/index.js"></script>
