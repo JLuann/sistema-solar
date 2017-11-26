@@ -1,7 +1,7 @@
-var scene, camera, renderer;
+var scene, camera, renderer, controls;
 var sphere;
-const WIDTH = 1024;
-const HEIGHT = 512;
+const WIDTH = window.innerWidth - 4;
+const HEIGHT = window.innerHeight - 4;
 
 function init() {
 	scene = new THREE.Scene();
@@ -10,6 +10,8 @@ function init() {
 	camera.position.z = 200;
 	camera.position.y = 200;
 	camera.lookAt(scene.position);
+
+	controls = new THREE.OrbitControls( camera );
 
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize(WIDTH, HEIGHT);
