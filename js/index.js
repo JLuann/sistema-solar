@@ -1,5 +1,5 @@
 var scene, camera, renderer, controls;
-var sphere;
+var earth, sun;
 const WIDTH = window.innerWidth - 4;
 const HEIGHT = window.innerHeight - 4;
 
@@ -27,21 +27,36 @@ function orbit(planet, radius, speed, t) {
 	planet.position.z = Math.sin(variation) * 100;
 }
 
+function translation(planet) {
+	planet.rotateY(0.01);
+}
+
 function animate(t) {
-	orbit(sphere, 100, 0.2, t);
+	orbit(earth, 100, 0.2, t);
+	translation(earth);
+	translation(sun);
 	requestAnimationFrame(animate);
 	renderer.render(scene, camera);
 }
 
 function createObjects() {
-	var sphereGeo = new THREE.SphereGeometry(10, 32, 32);
-	var sphereMat = new THREE.MeshBasicMaterial({color: 0x0000F0});
-	sphere = new THREE.Mesh(sphereGeo, sphereMat);
-	scene.add(sphere);
+	scene.add(new THREE.AmbientLight(0xeef0ff));
 
+	// create planet
+	var texture = new THREE.TextureLoader().load("images/earth.jpg");
+	
+	var earthGeo = new THREE.SphereGeometry(10, 32, 32);
+	var earthMat = new THREE.MeshBasicMaterial({color: 0xFFFFFF, map: texture});
+	earth = new THREE.Mesh(earthGeo, earthMat);
+	scene.add(earth);
+
+	// load a texture, set wrap mode to repeat
+	var texture = new THREE.TextureLoader().load("images/sun.jpg");
+
+	// create sun
 	var sunGeo = new THREE.SphereGeometry(25, 32, 32);
-	var sunMat = new THREE.MeshBasicMaterial({color: 0xFFFF00});
-	var sun = new THREE.Mesh(sunGeo, sunMat);
+	var sunMat = new THREE.MeshPhongMaterial({color: 0xFFFFFF, map: texture});
+	sun = new THREE.Mesh(sunGeo, sunMat);
 	scene.add(sun);
 }
 
